@@ -1,5 +1,6 @@
 package com.example.APIRest.controllers;
 
+import com.example.APIRest.dtos.BaseDTO;
 import com.example.APIRest.entities.Base;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

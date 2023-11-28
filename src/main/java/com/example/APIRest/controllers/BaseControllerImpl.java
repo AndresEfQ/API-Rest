@@ -1,6 +1,8 @@
 package com.example.APIRest.controllers;
 
+import com.example.APIRest.dtos.BaseDTO;
 import com.example.APIRest.entities.Base;
+import com.example.APIRest.mappers.BaseMapper;
 import com.example.APIRest.services.BaseService;
 import com.example.APIRest.services.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 
-public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceImpl<E, Long>> implements BaseController<E, Long> {
+public abstract class BaseControllerImpl<E extends Base, D extends BaseDTO, M extends BaseMapper<E, D>, S extends BaseServiceImpl<E, D, M, Long>> implements BaseController<E, Long> {
 
     @Autowired
     protected S service;
@@ -37,9 +39,10 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody E entity) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(service.save(entity));
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.save(entity));
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"Error. Please try again later\"");
         }
     }
@@ -56,11 +59,13 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
-            E entity = service.findById(id);
-            service.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("{\"success\": \"" + entity.getClass().getSimpleName() + " with id " + id + " was successfully deleted\"}");
+            boolean deleted = service.delete(id);
+            if (!deleted) {
+                throw new Exception("Couldn delete object with id " + id);
+            }
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("{\"success\": \"Object with id " + id + " was successfully deleted\"}");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"Error. Please try again later\"");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": " + e.getMessage());
         }
     }
 }
