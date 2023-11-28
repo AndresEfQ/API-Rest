@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClientService extends BaseServiceImpl<Client, ClientDTO, ClientMapper, Long> {
 
+
     public ClientService(BaseRepository<Client, Long> baseRepository, ClientMapper clientMapper) {
         super(baseRepository);
         this.modelMapper = clientMapper;

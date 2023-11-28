@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@NoRepositoryBean
 public abstract class BaseServiceImpl<E extends Base, D extends BaseDTO, M extends BaseMapper<E, D>, ID extends Serializable> implements BaseService<E, D, ID> {
 
     protected BaseRepository<E, ID> baseRepository;

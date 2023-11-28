@@ -2,6 +2,7 @@ package com.example.APIRest.mappers;
 
 import com.example.APIRest.dtos.ProductDTO;
 import com.example.APIRest.entities.Product;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
