@@ -4,5 +4,5 @@ import com.example.APIRest.entities.Product;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends BaseRepository<Product, Long> {
+public interface ProductRepository extends BaseRepository<Product> {
 }

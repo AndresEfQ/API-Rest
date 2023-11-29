@@ -1,5 +1,6 @@
 package com.example.APIRest.dtos;
 
+import com.example.APIRest.entities.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,6 @@ import java.util.List;
 public class PurchaseOrderDTO implements BaseDTO {
 
     private String clientName;
-    private List<String> productNameList;
+    private List<ProductDTO> productList;
     private double price;
 }

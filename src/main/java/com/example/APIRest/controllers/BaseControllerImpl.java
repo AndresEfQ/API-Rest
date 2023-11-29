@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 
-public abstract class BaseControllerImpl<E extends Base, D extends BaseDTO, M extends BaseMapper<E, D>, S extends BaseServiceImpl<E, D, M, Long>> implements BaseController<E, Long> {
+public abstract class BaseControllerImpl<E extends Base, D extends BaseDTO, M extends BaseMapper<E, D>, S extends BaseServiceImpl<E, D, M>> implements BaseController<E> {
 
     @Autowired
     protected S service;

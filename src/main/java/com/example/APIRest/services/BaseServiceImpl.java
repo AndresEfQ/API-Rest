@@ -16,14 +16,14 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @NoRepositoryBean
-public abstract class BaseServiceImpl<E extends Base, D extends BaseDTO, M extends BaseMapper<E, D>, ID extends Serializable> implements BaseService<E, D, ID> {
+public abstract class BaseServiceImpl<E extends Base, D extends BaseDTO, M extends BaseMapper<E, D>> implements BaseService<E, D> {
 
-    protected BaseRepository<E, ID> baseRepository;
-    @Autowired
+    protected BaseRepository<E> baseRepository;
     protected M modelMapper;
 
-    protected BaseServiceImpl(BaseRepository<E, ID> baseRepository) {
+    protected BaseServiceImpl(BaseRepository<E> baseRepository, M modelMapper) {
         this.baseRepository = baseRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -43,7 +43,7 @@ public abstract class BaseServiceImpl<E extends Base, D extends BaseDTO, M exten
 
     @Override
     @Transactional
-    public D findById(ID id) throws Exception {
+    public D findById(Long id) throws Exception {
         try {
             Optional<E> entityOptional = baseRepository.findById(id);
             if (entityOptional.isEmpty()) {
@@ -69,7 +69,7 @@ public abstract class BaseServiceImpl<E extends Base, D extends BaseDTO, M exten
 
     @Override
     @Transactional
-    public D update(ID id, E entity) throws Exception {
+    public D update(Long id, E entity) throws Exception {
         try {
             if (!baseRepository.existsById(id)) {
                 throw new NoSuchElementException("Couldn't find the entity");
@@ -83,7 +83,7 @@ public abstract class BaseServiceImpl<E extends Base, D extends BaseDTO, M exten
 
     @Override
     @Transactional
-    public boolean delete(ID id) throws Exception {
+    public boolean delete(Long id) throws Exception {
         try {
             baseRepository.deleteById(id);
             return true;

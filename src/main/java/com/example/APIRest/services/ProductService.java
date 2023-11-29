@@ -10,10 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductService extends BaseServiceImpl<Product, ProductDTO, ProductMapper, Long> {
+public class ProductService extends BaseServiceImpl<Product, ProductDTO, ProductMapper> {
 
-    public ProductService(BaseRepository<Product, Long> baseRepository, ProductMapper productMapper) {
-        super(baseRepository);
-        this.modelMapper = productMapper;
+    public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
+        super(productRepository, productMapper);
     }
 }

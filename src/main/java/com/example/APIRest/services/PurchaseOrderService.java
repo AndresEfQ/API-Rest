@@ -10,10 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PurchaseOrderService extends BaseServiceImpl<PurchaseOrder, PurchaseOrderDTO, PurchaseOrderMapper, Long> {
+public class PurchaseOrderService extends BaseServiceImpl<PurchaseOrder, PurchaseOrderDTO, PurchaseOrderMapper> {
 
-    public PurchaseOrderService(BaseRepository<PurchaseOrder, Long> baseRepository, PurchaseOrderMapper purchaseOrderMapper) {
-        super(baseRepository);
-        this.modelMapper = purchaseOrderMapper;
+    public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository, PurchaseOrderMapper purchaseOrderMapper) {
+        super(purchaseOrderRepository, purchaseOrderMapper);
     }
 }
